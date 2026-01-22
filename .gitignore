@@ -1,0 +1,17 @@
+# Dependencias (No las subas, son pesadísimas)
+node_modules/
+
+# Archivos de sistema (Basura de Windows o Mac)
+.DS_Store
+Thumbs.db
+
+# Configuraciones de VS Code
+.vscode/
+
+# Archivos de logs (errores que genera Node)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Variables de entorno (Seguridad para el futuro)
+.env
