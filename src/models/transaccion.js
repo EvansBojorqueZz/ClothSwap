@@ -1,7 +1,7 @@
 import { CONFIG, historialVentas } from '../config.js';
 
 export class Transaccion {
-    constructor (id,prenda,comprador, vendedor){
+    constructor(id, prenda, comprador, vendedor) {
         this.id = id;
         this.prenda = prenda;
         this.comprador = comprador;
@@ -9,9 +9,9 @@ export class Transaccion {
         this.estado = CONFIG.ESTADOS.PENDIENTE;
     };
 
-    responderOferta(decision){
-        if (decision === "Aceptar"){
-            if(this.comprador.billetera >= this.prenda.precio){
+    responderOferta(decision) {
+        if (decision === "Aceptar") {
+            if (this.comprador.billetera >= this.prenda.precio) {
                 this.comprador.billetera -= this.prenda.precio;
                 this.vendedor.billetera += this.prenda.precio;
                 this.vendedor.closet = this.vendedor.closet.filter(prenda => prenda !== this.prenda);
@@ -21,12 +21,14 @@ export class Transaccion {
                 historialVentas.push(this);
                 return console.log("Trato Hecho! Felicidades!");
             } else {
-                return console.warn("No hay saldo en la billetera. Carga saldo para poder comprarla");
+                throw new Error("No hay saldo en la billetera. Carga saldo para poder comprarla");
             }
-        } 
-        if( decision === CONFIG.ESTADOS.RECHAZADA){
+        }
+        if (decision === CONFIG.ESTADOS.RECHAZADA) {
             this.estado = CONFIG.ESTADOS.RECHAZADA;
             return console.warn("Tu oferta fue rechazada :C");
         }
+
+        throw new Error(`Decisión inválida: ${decision}`);
     }
 }
